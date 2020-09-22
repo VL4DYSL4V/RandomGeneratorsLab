@@ -12,7 +12,6 @@ import java.util.List;
 
 public class AlgorithmLab {
 
-    //TODO: InverseCongruentAlgorithm is not working.
     public static void main(String[] args) {
         List<Random> randoms = new ArrayList<>(10);
         Random linearCongruentAlg = new LinearCongruentAlgorithm();
