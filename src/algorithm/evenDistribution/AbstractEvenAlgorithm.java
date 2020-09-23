@@ -2,19 +2,30 @@ package algorithm.evenDistribution;
 
 import algorithm.Random;
 import enums.AlgorithmConstants;
+import statistics.StatisticsGenerator;
 
 public abstract class AbstractEvenAlgorithm implements Random {
 
-    @Override
-    public double getRandom() {
-        return correctDegreeMaker(calculateNext()) / AlgorithmConstants.MOD.getValue();
+    private final StatisticsGenerator statisticsGenerator;
+
+    public AbstractEvenAlgorithm(StatisticsGenerator statisticsGenerator) {
+        this.statisticsGenerator = statisticsGenerator;
     }
 
-    public abstract double calculateNext();
+    @Override
+    public double getRandom() {
+        return calculateNext() / (double) getMOD().getValue();
+    }
 
-    public final double correctDegreeMaker(double number){
+    protected abstract double calculateNext();
+
+    protected AlgorithmConstants getMOD(){
+        return AlgorithmConstants.MAX_MOD;
+    }
+
+    public final double correctDegreeMaker(double number) {
         double generated = number;
-        while (Double.compare(generated, ((double) AlgorithmConstants.MOD.getValue()) / 10) == -1) {
+        while (Double.compare(generated, ((double) getMOD().getValue()) / 10) == -1) {
             generated *= 10;
         }
         return generated;
@@ -25,4 +36,12 @@ public abstract class AbstractEvenAlgorithm implements Random {
         return "*** \t " + this.getClass().getName();
     }
 
+    @Override
+    public String getStatistics() {
+        return statisticsGenerator.getForEvenDistribution(this);
+    }
+
+    public final int nextInt() {
+        return (int) calculateNext();
+    }
 }
