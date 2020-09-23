@@ -2,16 +2,20 @@ package algorithm.evenDistribution.congruent;
 
 import enums.AlgorithmConstants;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
+import statistics.StatisticsGenerator;
 
 public class LinearCongruentAlgorithm extends AbstractEvenAlgorithm {
 
-    private double current = 2383.0;
+    private double current = 331777.0;
+
+    public LinearCongruentAlgorithm(StatisticsGenerator statisticsGenerator) {
+        super(statisticsGenerator);
+    }
 
     @Override
-    public double calculateNext() {
+    protected double calculateNext() {
         current = (AlgorithmConstants.A.getValue() * current
-                + AlgorithmConstants.C.getValue()) % AlgorithmConstants.MOD.getValue();
+                + AlgorithmConstants.C.getValue()) % super.getMOD().getValue();
         return current;
     }
-    
 }
