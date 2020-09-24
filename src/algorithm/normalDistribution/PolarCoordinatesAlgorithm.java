@@ -1,10 +1,9 @@
 package algorithm.normalDistribution;
 
-import algorithm.Random;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
 import statistics.StatisticsGenerator;
 
-public class PolarCoordinatesAlgorithm implements Random {
+public class PolarCoordinatesAlgorithm implements NormalLabRandom {
 
     private final AbstractEvenAlgorithm abstractEvenAlgorithm;
     private final StatisticsGenerator statisticsGenerator;
@@ -42,6 +41,6 @@ public class PolarCoordinatesAlgorithm implements Random {
 
     @Override
     public String toString() {
-        return "*** \t " + this.getClass().getName();
+        return this.getClass().getName();
     }
 }

@@ -3,7 +3,7 @@ package Main;
 import app.Application;
 import statistics.LabStatisticsGenerator;
 
-//TODO: InverseCongruentAlgorithm works, but not properly.
+//TODO: Lab is finished, but InverseCongruentAlgorithm doesn't work properly.
 public class Main {
 
     public static void main(String[] args) {

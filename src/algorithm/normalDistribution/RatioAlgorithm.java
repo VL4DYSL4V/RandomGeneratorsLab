@@ -1,10 +1,9 @@
 package algorithm.normalDistribution;
 
-import algorithm.Random;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
 import statistics.StatisticsGenerator;
 
-public class RatioAlgorithm implements Random {
+public class RatioAlgorithm implements NormalLabRandom {
 
     private final AbstractEvenAlgorithm abstractEvenAlgorithm1;
     private final AbstractEvenAlgorithm abstractEvenAlgorithm2;
@@ -50,7 +49,7 @@ public class RatioAlgorithm implements Random {
 
     @Override
     public String toString() {
-        return "*** \t " + this.getClass().getName();
+        return this.getClass().getName();
     }
 
 }

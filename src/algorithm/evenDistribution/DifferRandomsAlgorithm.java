@@ -1,7 +1,5 @@
 package algorithm.evenDistribution;
 
-import algorithm.Random;
-import enums.AlgorithmConstants;
 import statistics.StatisticsGenerator;
 
 public class DifferRandomsAlgorithm extends AbstractEvenAlgorithm {
@@ -11,7 +9,7 @@ public class DifferRandomsAlgorithm extends AbstractEvenAlgorithm {
 
     public DifferRandomsAlgorithm(AbstractEvenAlgorithm generatorX, AbstractEvenAlgorithm generatorY, StatisticsGenerator statisticsGenerator) {
         super(statisticsGenerator);
-        if(generatorY instanceof DifferRandomsAlgorithm || generatorX instanceof DifferRandomsAlgorithm){
+        if (generatorY instanceof DifferRandomsAlgorithm || generatorX instanceof DifferRandomsAlgorithm) {
             throw new IllegalArgumentException("Class entirely relies on aggregation and can't generate sequences on its own");
         }
         this.generatorX = generatorX;
@@ -25,6 +23,5 @@ public class DifferRandomsAlgorithm extends AbstractEvenAlgorithm {
         generated %= super.getMOD().getValue();
         return generated;
     }
-
 
 }

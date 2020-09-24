@@ -1,10 +1,9 @@
 package algorithm.anotherDistribution;
 
-import algorithm.Random;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
 import statistics.StatisticsGenerator;
 
-public class LogarithmAlgorithm implements Random {
+public class LogarithmAlgorithm implements AnotherLabRandom {
 
     private final double mu = 17.0;
     private final StatisticsGenerator statisticsGenerator;
@@ -31,6 +30,6 @@ public class LogarithmAlgorithm implements Random {
 
     @Override
     public String toString() {
-        return "*** \t " + this.getClass().getName();
+        return this.getClass().getName();
     }
 }

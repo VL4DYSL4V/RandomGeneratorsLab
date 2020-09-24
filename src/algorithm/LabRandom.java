@@ -1,6 +1,6 @@
 package algorithm;
 
-public interface Random {
+public interface LabRandom {
 
     double getRandom();
 

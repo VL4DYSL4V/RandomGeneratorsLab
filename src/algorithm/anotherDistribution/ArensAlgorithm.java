@@ -1,16 +1,15 @@
 package algorithm.anotherDistribution;
 
-import algorithm.Random;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
 import statistics.StatisticsGenerator;
 
-/**It won't work with a = 1 or a <= 0
+/**It won't work with a <=1
  * */
-public class ArensAlgorithm implements Random {
+public class ArensAlgorithm implements AnotherLabRandom {
 
     private final StatisticsGenerator statisticsGenerator;
     private final AbstractEvenAlgorithm abstractEvenAlgorithm;
-    private final double a = 1.5;
+    private final double a = 2.1;
 
     public ArensAlgorithm(AbstractEvenAlgorithm abstractEvenAlgorithm, StatisticsGenerator statisticsGenerator) {
         this.statisticsGenerator = statisticsGenerator;
@@ -56,6 +55,6 @@ public class ArensAlgorithm implements Random {
 
     @Override
     public String toString() {
-        return "*** \t " + this.getClass().getName();
+        return this.getClass().getName();
     }
 }

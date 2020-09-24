@@ -1,10 +1,9 @@
 package algorithm.normalDistribution;
 
-import algorithm.Random;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
 import statistics.StatisticsGenerator;
 
-public class ThreeSigmaAlgorithm implements Random {
+public class ThreeSigmaAlgorithm implements NormalLabRandom {
 
     private final AbstractEvenAlgorithm abstractEvenAlgorithm;
     private final StatisticsGenerator statisticsGenerator;
@@ -30,7 +29,7 @@ public class ThreeSigmaAlgorithm implements Random {
 
     @Override
     public String toString() {
-        return "*** \t " + this.getClass().getName();
+        return this.getClass().getName();
     }
 
 }
