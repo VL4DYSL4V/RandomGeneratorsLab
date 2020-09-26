@@ -1,19 +1,33 @@
 package algorithm.anotherDistribution;
 
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
-import statistics.StatisticsGenerator;
+import algorithm.evenDistribution.congruent.QuadraticCongruentAlgorithm;
+import exception.InvalidParameterException;
 
-/**It won't work with a <=1
- * */
 public class ArensAlgorithm implements AnotherLabRandom {
 
-    private final StatisticsGenerator statisticsGenerator;
-    private final AbstractEvenAlgorithm abstractEvenAlgorithm;
-    private final double a = 2.1;
+    private AbstractEvenAlgorithm abstractEvenAlgorithm;
+    private final AbstractEvenAlgorithm defaultEvenAlgorithm = new QuadraticCongruentAlgorithm();
+    private double a = 2.1;
 
-    public ArensAlgorithm(AbstractEvenAlgorithm abstractEvenAlgorithm, StatisticsGenerator statisticsGenerator) {
-        this.statisticsGenerator = statisticsGenerator;
+    public ArensAlgorithm() {
+        setDefaultConfig();
+    }
+
+    public ArensAlgorithm(AbstractEvenAlgorithm abstractEvenAlgorithm) {
         this.abstractEvenAlgorithm = abstractEvenAlgorithm;
+    }
+
+    public void setCustomParameters(AbstractEvenAlgorithm abstractEvenAlgorithm, int a)throws InvalidParameterException{
+        check(a);
+        this.abstractEvenAlgorithm = abstractEvenAlgorithm;
+        this.a = a;
+    }
+
+    private void check(int a) throws InvalidParameterException {
+        if (a <= 1){
+            throw new InvalidParameterException("a must be bigger than 1");
+        }
     }
 
     @Override
@@ -49,8 +63,9 @@ public class ArensAlgorithm implements AnotherLabRandom {
     }
 
     @Override
-    public String getStatistics() {
-        return statisticsGenerator.getForAnotherDistribution(this);
+    public void setDefaultConfig() {
+        this.a = 2.1;
+        this.abstractEvenAlgorithm = defaultEvenAlgorithm;
     }
 
     @Override

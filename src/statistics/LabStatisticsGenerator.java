@@ -12,6 +12,19 @@ import java.util.*;
 public class LabStatisticsGenerator implements StatisticsGenerator {
 
     private final String header = "\tInterval\t\tFrequency\t\n";
+    private int generatingAmount = 10_000;
+
+    public LabStatisticsGenerator(int generatingAmount){
+        this.setGeneratingAmount(generatingAmount);
+    }
+
+    public void setGeneratingAmount(int generatingAmount) {
+        if(generatingAmount <= 0){
+            throw new IllegalArgumentException("generatingAmount must be positive");
+        }
+        this.generatingAmount = generatingAmount;
+    }
+
 
     @Override
     public String getForEvenDistribution(EvenLabRandom random) {
@@ -57,7 +70,6 @@ public class LabStatisticsGenerator implements StatisticsGenerator {
     private Map<Pair<Double>, Double> rows(List<Pair<Double>> intervals, LabRandom labRandom) {
         Map<Pair<Double>, Double> rows = new LinkedHashMap<>();
         intervals.forEach((pair) -> rows.put(pair, 0.0));
-        int generatingAmount = 10_000;
         for (int i = 0; i < generatingAmount; i++) {
             double rand = labRandom.getRandom();
             for (Pair<Double> key : rows.keySet()) {
