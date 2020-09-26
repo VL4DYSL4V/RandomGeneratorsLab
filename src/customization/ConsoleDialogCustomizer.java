@@ -157,24 +157,22 @@ public class ConsoleDialogCustomizer implements Customizer{
     }
 
     private AbstractEvenAlgorithm repeatingChooseEven() {
-        Scanner sc = new Scanner(System.in);
-        String input;
-        do {
-            System.out.println("Enter number of appropriate algorithm: " +
-                    "\n 1 - linear, 2 - quadratic, 3 - fibonacci, 4 - inverse, 5 - differ");
-            input = sc.next();
-        } while (!input.matches("[12345]"));
-        return (AbstractEvenAlgorithm) getRandom(input);
+        return repeatingChooseEven("Enter number of appropriate algorithm: " +
+                "\n 1 - linear, 2 - quadratic, 3 - fibonacci, 4 - inverse, 5 - differ", "[12345]");
     }
 
     private AbstractEvenAlgorithm repeatingChooseEvenForDiffer() {
+        return repeatingChooseEven("Enter number of appropriate algorithm: " +
+                "\n 1 - linear, 2 - quadratic, 3 - fibonacci, 4 - inverse", "[1234]");
+    }
+
+    private AbstractEvenAlgorithm repeatingChooseEven(String menu, String regexRange) {
         Scanner sc = new Scanner(System.in);
         String input;
         do {
-            System.out.println("Enter number of appropriate algorithm: " +
-                    "\n 1 - linear, 2 - quadratic, 3 - fibonacci, 4 - inverse");
+            System.out.println(menu);
             input = sc.next();
-        } while (!input.matches("[1234]"));
+        } while (! input.matches(regexRange));
         return (AbstractEvenAlgorithm) getRandom(input);
     }
 

@@ -61,7 +61,6 @@ public class QuadraticCongruentAlgorithm extends AbstractEvenAlgorithm {
                 throw new InvalidParameterException("d and (a - 1) must be divisible by all simple factors of mod!");
             }
         }
-
     }
 
     @Override
