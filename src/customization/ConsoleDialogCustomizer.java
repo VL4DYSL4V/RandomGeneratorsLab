@@ -164,7 +164,6 @@ public class ConsoleDialogCustomizer implements Customizer{
     private AbstractEvenAlgorithm repeatingChooseEvenForDiffer() {
         return repeatingChooseEven("Enter number of appropriate algorithm: " +
                 "\n 1 - linear, 2 - quadratic, 3 - fibonacci, 4 - inverse", "[1234]");
-
     }
 
     private AbstractEvenAlgorithm repeatingChooseEven(String menu, String regexRange) {
