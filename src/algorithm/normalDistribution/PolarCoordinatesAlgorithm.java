@@ -6,7 +6,7 @@ import algorithm.evenDistribution.congruent.QuadraticCongruentAlgorithm;
 public class PolarCoordinatesAlgorithm implements NormalLabRandom {
 
     private AbstractEvenAlgorithm abstractEvenAlgorithm;
-    private final AbstractEvenAlgorithm defaultEvenAlgorithm = new QuadraticCongruentAlgorithm();;
+    private final AbstractEvenAlgorithm defaultEvenAlgorithm = new QuadraticCongruentAlgorithm();
     private double anotherCoordinate = 0.0;
 
     public PolarCoordinatesAlgorithm() {

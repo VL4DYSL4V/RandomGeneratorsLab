@@ -4,7 +4,6 @@ import app.Application;
 import statistics.LabStatisticsGenerator;
 import statistics.StatisticsGenerator;
 
-//TODO: Parameter input logic;
 public class Main {
 
     public static void main(String[] args){

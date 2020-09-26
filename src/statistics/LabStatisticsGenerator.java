@@ -11,7 +11,6 @@ import java.util.*;
 
 public class LabStatisticsGenerator implements StatisticsGenerator {
 
-    private final String header = "\tInterval\t\tFrequency\t\n";
     private int generatingAmount = 10_000;
 
     public LabStatisticsGenerator(int generatingAmount){
@@ -56,6 +55,7 @@ public class LabStatisticsGenerator implements StatisticsGenerator {
 
     private String getTable(Map<Pair<Double>, Double> rows){
         StringBuilder sb = new StringBuilder(100);
+        String header = "\tInterval\t\tFrequency\t\n";
         sb.append(header);
         rows.forEach((key, value) -> {
             sb.append("\t");
