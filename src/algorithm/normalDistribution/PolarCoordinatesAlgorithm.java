@@ -1,23 +1,29 @@
 package algorithm.normalDistribution;
 
-import algorithm.Random;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
-import statistics.StatisticsGenerator;
+import algorithm.evenDistribution.congruent.QuadraticCongruentAlgorithm;
 
-public class PolarCoordinatesAlgorithm implements Random {
+public class PolarCoordinatesAlgorithm implements NormalLabRandom {
 
-    private final AbstractEvenAlgorithm abstractEvenAlgorithm;
-    private final StatisticsGenerator statisticsGenerator;
+    private AbstractEvenAlgorithm abstractEvenAlgorithm;
+    private final AbstractEvenAlgorithm defaultEvenAlgorithm = new QuadraticCongruentAlgorithm();
     private double anotherCoordinate = 0.0;
 
-    public PolarCoordinatesAlgorithm(AbstractEvenAlgorithm abstractEvenAlgorithm, StatisticsGenerator statisticsGenerator) {
+    public PolarCoordinatesAlgorithm() {
+        setDefaultConfig();
+    }
+
+    public PolarCoordinatesAlgorithm(AbstractEvenAlgorithm abstractEvenAlgorithm) {
         this.abstractEvenAlgorithm = abstractEvenAlgorithm;
-        this.statisticsGenerator = statisticsGenerator;
+    }
+
+    public void setCustomParameters(AbstractEvenAlgorithm abstractEvenAlgorithm){
+        this.abstractEvenAlgorithm = abstractEvenAlgorithm;
     }
 
     @Override
     public double getRandom() {
-        if(anotherCoordinate != 0.0){
+        if (anotherCoordinate != 0.0) {
             double tmp = anotherCoordinate;
             anotherCoordinate = 0.0;
             return tmp;
@@ -26,22 +32,23 @@ public class PolarCoordinatesAlgorithm implements Random {
         double v1;
         double v2;
         do {
-             v1 = 2*abstractEvenAlgorithm.getRandom() - 1;
-             v2 = 2*abstractEvenAlgorithm.getRandom() - 1;
-             s = Math.pow(v1, 2) + Math.pow(v2, 2);
-        }while(s >= 1);
-        double factor = Math.sqrt(( -2 * Math.log(s)) / s);
+            v1 = 2 * abstractEvenAlgorithm.getRandom() - 1;
+            v2 = 2 * abstractEvenAlgorithm.getRandom() - 1;
+            s = Math.pow(v1, 2) + Math.pow(v2, 2);
+        } while (s >= 1);
+        double factor = Math.sqrt((-2 * Math.log(s)) / s);
         anotherCoordinate = v2 * factor;
         return v1 * factor;
     }
 
     @Override
-    public String getStatistics() {
-        return statisticsGenerator.getForNormalDistribution(this);
+    public void setDefaultConfig() {
+        this.anotherCoordinate = 0.0;
+        this.abstractEvenAlgorithm = defaultEvenAlgorithm;
     }
 
     @Override
     public String toString() {
-        return "*** \t " + this.getClass().getName();
+        return this.getClass().getName();
     }
 }

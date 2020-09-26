@@ -1,20 +1,34 @@
 package algorithm.anotherDistribution;
 
-import algorithm.Random;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
-import statistics.StatisticsGenerator;
+import algorithm.evenDistribution.congruent.QuadraticCongruentAlgorithm;
+import exception.InvalidParameterException;
 
-public class LogarithmAlgorithm implements Random {
+public class LogarithmAlgorithm implements AnotherLabRandom {
 
-    private final double mu = 17.0;
-    private final StatisticsGenerator statisticsGenerator;
-    private final AbstractEvenAlgorithm abstractEvenAlgorithm;
+    private double mu = 17.0;
+    private AbstractEvenAlgorithm abstractEvenAlgorithm;
+    private final AbstractEvenAlgorithm defaultEvenAlgorithm = new QuadraticCongruentAlgorithm();
 
-    public LogarithmAlgorithm(AbstractEvenAlgorithm abstractEvenAlgorithm, StatisticsGenerator statisticsGenerator) {
-        this.statisticsGenerator = statisticsGenerator;
+    public LogarithmAlgorithm() {
+        setDefaultConfig();
+    }
+
+    public LogarithmAlgorithm(AbstractEvenAlgorithm abstractEvenAlgorithm) {
         this.abstractEvenAlgorithm = abstractEvenAlgorithm;
     }
 
+    public void setCustomParameters(AbstractEvenAlgorithm abstractEvenAlgorithm, int mu)throws InvalidParameterException{
+        check(mu);
+        this.mu = mu;
+        this.abstractEvenAlgorithm = abstractEvenAlgorithm;
+    }
+
+    private void check(int mu) throws InvalidParameterException {
+        if (mu <= 1){
+            throw new InvalidParameterException("mu must be bigger than 1");
+        }
+    }
     @Override
     public double getRandom() {
         double u;
@@ -25,12 +39,13 @@ public class LogarithmAlgorithm implements Random {
     }
 
     @Override
-    public String getStatistics() {
-        return statisticsGenerator.getForAnotherDistribution(this);
+    public void setDefaultConfig() {
+        this.mu = 17.0;
+        this.abstractEvenAlgorithm = defaultEvenAlgorithm;
     }
 
     @Override
     public String toString() {
-        return "*** \t " + this.getClass().getName();
+        return this.getClass().getName();
     }
 }

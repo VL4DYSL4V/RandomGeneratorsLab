@@ -1,18 +1,29 @@
 package algorithm.normalDistribution;
 
-import algorithm.Random;
 import algorithm.evenDistribution.AbstractEvenAlgorithm;
-import statistics.StatisticsGenerator;
+import algorithm.evenDistribution.congruent.LinearCongruentAlgorithm;
+import algorithm.evenDistribution.congruent.QuadraticCongruentAlgorithm;
 
-public class RatioAlgorithm implements Random {
+public class RatioAlgorithm implements NormalLabRandom {
 
-    private final AbstractEvenAlgorithm abstractEvenAlgorithm1;
-    private final AbstractEvenAlgorithm abstractEvenAlgorithm2;
-    private final StatisticsGenerator statisticsGenerator;
+    private AbstractEvenAlgorithm abstractEvenAlgorithm1;
+    private AbstractEvenAlgorithm abstractEvenAlgorithm2;
+    private AbstractEvenAlgorithm defaultEvenAlgorithm1;
+    private AbstractEvenAlgorithm defaultEvenAlgorithm2;
 
-    public RatioAlgorithm(AbstractEvenAlgorithm algorithm1,
-                          AbstractEvenAlgorithm algorithm2, StatisticsGenerator statisticsGenerator) {
-        this.statisticsGenerator = statisticsGenerator;
+    public RatioAlgorithm() {
+        this.defaultEvenAlgorithm1 = new LinearCongruentAlgorithm();
+        this.defaultEvenAlgorithm2 = new QuadraticCongruentAlgorithm();
+        setDefaultConfig();
+    }
+
+    public RatioAlgorithm(AbstractEvenAlgorithm algorithm1, AbstractEvenAlgorithm algorithm2) {
+        this();
+        this.abstractEvenAlgorithm1 = algorithm1;
+        this.abstractEvenAlgorithm2 = algorithm2;
+    }
+
+    public void setCustomParameters(AbstractEvenAlgorithm algorithm1, AbstractEvenAlgorithm algorithm2){
         this.abstractEvenAlgorithm1 = algorithm1;
         this.abstractEvenAlgorithm2 = algorithm2;
     }
@@ -44,13 +55,14 @@ public class RatioAlgorithm implements Random {
     }
 
     @Override
-    public String getStatistics() {
-        return statisticsGenerator.getForNormalDistribution(this);
+    public void setDefaultConfig() {
+        this.abstractEvenAlgorithm1 = defaultEvenAlgorithm1;
+        this.abstractEvenAlgorithm2 = defaultEvenAlgorithm2;
     }
 
     @Override
     public String toString() {
-        return "*** \t " + this.getClass().getName();
+        return this.getClass().getName();
     }
 
 }

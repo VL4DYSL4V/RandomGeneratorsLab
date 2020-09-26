@@ -1,12 +1,17 @@
 package statistics;
 
-import algorithm.Random;
+import algorithm.LabRandom;
+import algorithm.anotherDistribution.AnotherLabRandom;
+import algorithm.evenDistribution.EvenLabRandom;
+import algorithm.normalDistribution.NormalLabRandom;
 
 public interface StatisticsGenerator {
 
-    String getForEvenDistribution(Random random);
+    String getForEvenDistribution(EvenLabRandom random);
 
-    String getForNormalDistribution(Random random);
+    String getForNormalDistribution(NormalLabRandom random);
 
-    String getForAnotherDistribution(Random random);
+    String getForAnotherDistribution(AnotherLabRandom random);
+
+    String getForAnyRandom(LabRandom labRandom, double leftIntervalBorder, double rightIntervalBorder, double step);
 }

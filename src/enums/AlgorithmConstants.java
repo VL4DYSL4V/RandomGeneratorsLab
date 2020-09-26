@@ -1,8 +1,7 @@
 package enums;
 
 public enum AlgorithmConstants {
-    A(16769023), C(1073676287), D(1354828), MAX_MOD(2147483647),
-    MOD_1(6679881),MOD_2(9369319),MOD_3(126247697);
+    A(16769023), C(1073676287), D(1354828), MAX_MOD(2147483647), MIN_MOD(9369319);
     private final int value;
 
     AlgorithmConstants(int value) {

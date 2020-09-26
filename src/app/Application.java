@@ -1,79 +1,62 @@
 package app;
 
-import algorithm.Random;
-import algorithm.anotherDistribution.ArensAlgorithm;
-import algorithm.anotherDistribution.LogarithmAlgorithm;
-import algorithm.evenDistribution.AbstractEvenAlgorithm;
-import algorithm.evenDistribution.DifferRandomsAlgorithm;
-import algorithm.evenDistribution.FibonacciAlgorithm;
-import algorithm.evenDistribution.congruent.InverseCongruentAlgorithm;
-import algorithm.evenDistribution.congruent.LinearCongruentAlgorithm;
-import algorithm.evenDistribution.congruent.QuadraticCongruentAlgorithm;
-import algorithm.normalDistribution.PolarCoordinatesAlgorithm;
-import algorithm.normalDistribution.RatioAlgorithm;
-import algorithm.normalDistribution.ThreeSigmaAlgorithm;
+import algorithm.LabRandom;
+import customization.ConsoleDialogCustomizer;
+import customization.Customizer;
+import dialog.LabDialogPrinter;
 import statistics.StatisticsGenerator;
+import util.AlgorithmPacks;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Application {
-    private List<Random> randoms = new ArrayList<>(10);
-    private final String greeting = "Hi! This is Vladislav's laboratory work.";
-    private final String inputManual = "Please, enter number from 0 to 9 (incl) to see diagrams\n" +
-            " for different pseudorandom generators. To exit, enter stop";
+    private final Map<Integer, LabRandom> labRandoms;
+    private final LabDialogPrinter labDialogPrinter = new LabDialogPrinter();
+    private final Customizer algorithmCustomizer;
+    private final StatisticsGenerator statisticsGenerator;
 
     public Application(StatisticsGenerator statisticsGenerator) {
-        initRandoms(statisticsGenerator);
+        this.statisticsGenerator = statisticsGenerator;
+        this.labRandoms = AlgorithmPacks.standardAllRandomPack();
+        this.algorithmCustomizer = new ConsoleDialogCustomizer(Collections.unmodifiableMap(labRandoms));
     }
 
     public void run() {
-        System.out.println(greeting);
+        labDialogPrinter.printGreetings();
         Scanner sc = new Scanner(System.in);
-        int index;
         String input;
         do {
-            System.out.println(inputManual);
-            input = sc.next();
-            if (!input.matches("[0-9]")) {
-                continue;
+            labDialogPrinter.printManual();
+            input = sc.next().toLowerCase().trim();
+            if (input.matches("[1-9]|10")) {
+                LabRandom labRandom = getRandom(input);
+                labDialogPrinter.askAboutCustomization();
+                input = sc.next().toLowerCase().trim();
+                if ("+".equals(input)) {
+                    algorithmCustomizer.customize(labRandom);
+                }
+                System.out.println(labRandom + "\n" + labRandom.getStatistics(statisticsGenerator));
+            } else if ("all".equals(input)) {
+                printAllStatistics();
+            } else if ("reset".equals(input)) {
+                reset();
             }
-            index = Integer.parseInt(input);
-            Random random = randoms.get(index);
-            System.out.println(random);
-            System.out.println(random.getStatistics());
-        } while (!"stop".equals(input.toLowerCase().trim()));
+        } while (!"stop".equals(input));
     }
 
-    private void initRandoms(StatisticsGenerator statisticsGenerator) {
-        AbstractEvenAlgorithm linearCongruentAlg = new LinearCongruentAlgorithm(statisticsGenerator);
-        AbstractEvenAlgorithm quadraticCongruentAlgorithm = new QuadraticCongruentAlgorithm(statisticsGenerator);
-        AbstractEvenAlgorithm fibonacciAlgorithm = new FibonacciAlgorithm(statisticsGenerator);
-        AbstractEvenAlgorithm inverseCongruentAlgorithm = new InverseCongruentAlgorithm(statisticsGenerator);   //    --
-        AbstractEvenAlgorithm differRandomsAlgorithm =
-                new DifferRandomsAlgorithm(quadraticCongruentAlgorithm, linearCongruentAlg, statisticsGenerator);
-        randoms.add(linearCongruentAlg);
-        randoms.add(quadraticCongruentAlgorithm);
-        randoms.add(fibonacciAlgorithm);
-        randoms.add(differRandomsAlgorithm);
-        randoms.add(inverseCongruentAlgorithm);
-        Random threeSigmaRandom = new ThreeSigmaAlgorithm(statisticsGenerator, linearCongruentAlg);
-        Random ratioAlgorithm = new RatioAlgorithm(linearCongruentAlg, quadraticCongruentAlgorithm, statisticsGenerator);
-        Random polarCoordinatesAlgorithm = new PolarCoordinatesAlgorithm(quadraticCongruentAlgorithm, statisticsGenerator);
-        randoms.add(threeSigmaRandom);
-        randoms.add(ratioAlgorithm);
-        randoms.add(polarCoordinatesAlgorithm);
-        Random logarithmAlgorithm = new LogarithmAlgorithm(quadraticCongruentAlgorithm, statisticsGenerator);
-        Random arensAlgorithm = new ArensAlgorithm(quadraticCongruentAlgorithm, statisticsGenerator);
-        randoms.add(logarithmAlgorithm);
-        randoms.add(arensAlgorithm);
+    private LabRandom getRandom(String input) {
+        int key = Integer.parseInt(input) - 1;
+        return labRandoms.get(key);
     }
 
     private void printAllStatistics() {
-        randoms.forEach((random) -> {
+        labRandoms.forEach((number, random) -> {
             System.out.println(random);
-            System.out.println(random.getStatistics());
+            System.out.println(random.getStatistics(statisticsGenerator));
         });
+    }
+
+    private void reset() {
+        labRandoms.values().forEach(LabRandom::setDefaultConfig);
     }
 }
